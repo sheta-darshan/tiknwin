@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home-TikNWin{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app/styles.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>{% block header %}TiknWin{% endblock %}</h1>
+    </header>
+
+    <nav>
+        <div class="left-links">
+            <a class="links" href="#home">Home</a> |
+            <a class="links" href="#sports">Sports</a> |
+            <a class="links" href="#teams">Teams</a> |
+            <a class="links" href="#matches">Matches</a> |
+            <a class="links" href="#predictions">Predictions</a>
+        </div>
+        <div class="right-links">
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.first_name }}</p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> | 
+            <a class="links" href="{% url 'app:register' %}">Register</a>
+        {% endif %}
+
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        &copy; {% block footer_year %}2024{% endblock %} tiknwin
+    </footer>
+
+</body>
+</html>

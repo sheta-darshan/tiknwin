@@ -1,0 +1,15 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Home - TikNWin{% endblock %}
+
+{% block header %}Welcome to TikNWin!{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.first_name }} </p>
+    <h2>here you can  win prizes  just by predicting the winner of any sports </h2>
+{% else %}
+    <h2> Welcome to TikNWin for start winninng do <a href="{% url 'login' %}">Login</a></h2>
+{% endif %}
+
+{% endblock %}
