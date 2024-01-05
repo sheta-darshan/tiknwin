@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm, CustomAuthenticationForm
+from .forms import RegistrationForm, CustomAuthenticationForm, UserProfileForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -40,3 +40,15 @@ def login_view(request):
     else:
         form = CustomAuthenticationForm()
     return render(request=request, template_name="app/login.html", context={"login_form": form})
+
+def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('app:profile')  # Redirect to the same page to show the updated profile
+    else:
+        form = UserProfileForm(instance=request.user)
+
+    return render(request, 'app/profile.html', {'form': form})

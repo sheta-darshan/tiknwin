@@ -15,7 +15,7 @@
 
     <nav>
         <div class="left-links">
-            <a class="links" href="#home">Home</a> |
+            <a class="links" href="{% url 'app:index' %}">Home</a> |
             <a class="links" href="#sports">Sports</a> |
             <a class="links" href="#teams">Teams</a> |
             <a class="links" href="#matches">Matches</a> |
@@ -24,6 +24,7 @@
         <div class="right-links">
         {% if user.is_authenticated %}
             <p>Welcome, {{ user.first_name }}</p>
+            <a href="{% url 'app:profile' %}">Profile</a>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit">Logout</button>
