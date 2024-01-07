@@ -52,3 +52,15 @@ def profile(request):
         form = UserProfileForm(instance=request.user)
 
     return render(request, 'app/profile.html', {'form': form})
+
+def match(request):
+    return render(request, "app/match.html")
+
+def matches(request):
+    return render(request, "app/matches.html")
+
+def predictions(request):
+    return render(request, "app/predictions.html")
+
+def sports(request):
+    return render(request, "app/sports.html")

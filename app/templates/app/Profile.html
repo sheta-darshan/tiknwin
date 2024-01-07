@@ -17,9 +17,7 @@
 
     <form method="post" action="{% url 'app:profile' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table>{{ form.as_table }}</table>
         <button type="submit">Save Changes</button>
     </form>
-
-    <a href="{% url 'app:profile' %}?edit=1">Edit Profile</a>
 {% endblock %}

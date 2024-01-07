@@ -47,3 +47,19 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.button {
+    position: absolute;
+    top:50%;
+    background-color:#0a0a23;
+    color: #fff;
+    border:none;
+}
+
+table {
+    text-align: left;
+}
+
+td {
+    vertical-align: top;
+  }

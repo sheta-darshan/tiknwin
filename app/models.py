@@ -56,6 +56,10 @@ class Match(models.Model):
     # Additional information (optional)
     description = models.TextField(blank=True)
 
+    # Link to Sports
+    sports = models.ForeignKey('Sports', related_name='matches', on_delete=models.CASCADE, null=True, blank=True)
+
+
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
