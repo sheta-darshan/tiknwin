@@ -5,7 +5,7 @@ from django.db import models
 class Sports(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    image = models.ImageField(upload_to='media/images/', null=True, blank=True)
 
     # Additional information (optional)
     founded_year = models.PositiveIntegerField(null=True, blank=True)
@@ -31,7 +31,7 @@ class Team(models.Model):
     website = models.URLField(blank=True)
 
     # Flag image
-    flag_image = models.ImageField(upload_to='team_flags/', null=True, blank=True)
+    flag_image = models.ImageField(upload_to='media/team_flags/', null=True, blank=True)
 
     # Relationships
     sports = models.ManyToManyField('Sports', related_name='teams')

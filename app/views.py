@@ -3,6 +3,8 @@ from .forms import RegistrationForm, CustomAuthenticationForm, UserProfileForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from .models import Sports
+
 # Create your views here.
 
 def index(request):
@@ -62,5 +64,9 @@ def matches(request):
 def predictions(request):
     return render(request, "app/predictions.html")
 
-def sports(request):
-    return render(request, "app/sports.html")
+def view_sports(request):
+    sports = Sports.objects.all()
+    return render(request, "app/sports.html", {'sports': sports})
+
+def view_matches(request, sport_id):
+    return render(request, "app/matches.html")
