@@ -1,10 +1,44 @@
 {% extends 'app/layout.html' %}
 
-{% block title %}Matches - TikNWin{% endblock %}
+{% block title %}Matches for {{ sport.name }} - TikNWin{% endblock %}
 
 {% block header %}TikNWin{% endblock %}
 
 {% block content %}
-<h1>Matches</h1>
+  <h1>Matches</h1>
+  <p>Matches for {{ sport.name }}</p>
 
+  {% for match in matches %}
+    {% if match.date_time >= now %}
+      <div style="margin-bottom: 20px;">
+        <p>{{ match.date_time }} - {{ match.location }}</p>
+        <p>{{ match.home_team.name }} vs {{ match.away_team.name }}</p>
+        
+        {% if match.home_team.flag_image %}
+          <img src="{{ match.home_team.flag_image.url }}" alt="{{ match.home_team.name }} Flag" style="width: 100px; height: auto;">
+        {% else %}
+          <!-- Handle the case when no flag is available for the home team -->
+          <p>No flag available for {{ match.home_team.name }}</p>
+        {% endif %}
+        vs
+        {% if match.away_team.flag_image %}
+          <img src="{{ match.away_team.flag_image.url }}" alt="{{ match.away_team.name }} Flag" style="width: 100px; height: auto;">
+        {% else %}
+          <!-- Handle the case when no flag is available for the away team -->
+          <p>No flag available for {{ match.away_team.name }}</p>
+        {% endif %}
+
+        {% if match.result %}
+          <p>Result: {{ match.result }}</p>
+        {% endif %}
+        {% if match.description %}
+          <p>Description: {{ match.description }}</p>
+        {% endif %}
+
+        {% with time_difference=match.date_time|timeuntil:now %}
+          <p>Time remaining: {{ time_difference }}</p>
+        {% endwith %}
+      </div>
+    {% endif %}
+  {% endfor %}
 {% endblock %}

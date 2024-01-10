@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm, CustomAuthenticationForm, UserProfileForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Sports
+from .models import Sports, Match
+from django.utils import timezone
+
 
 # Create your views here.
 
@@ -68,5 +70,10 @@ def view_sports(request):
     sports = Sports.objects.all()
     return render(request, "app/sports.html", {'sports': sports})
 
+
+
 def view_matches(request, sport_id):
-    return render(request, "app/matches.html")
+    sport = get_object_or_404(Sports, pk=sport_id)
+    matches = Match.objects.filter(sports=sport)
+    now = timezone.now()
+    return render(request, "app/matches.html", {'sport': sport, 'matches': matches, 'now': now})

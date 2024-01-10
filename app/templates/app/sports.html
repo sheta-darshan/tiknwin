@@ -8,9 +8,11 @@
 <h1>Sports List</h1>
 
 {% for sport in sports %}
-    <div style="display: inline-block; margin: 10px;" >
+    <div style="display: inline-block; margin: 10px;">
+        <a href="{% url 'app:view_matches' sport.id %}">
         <img src="{{ sport.image.url }}" alt="{{ sport.name }}" style="border-radius: 50%; width: 100px; height: 100px;">
         <p><h3>{{ sport.name }}</h3></p>
+        </a>
     </div>
 {% endfor %}
 {% endblock %}
