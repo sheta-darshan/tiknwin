@@ -3,8 +3,9 @@ from .forms import RegistrationForm, CustomAuthenticationForm, UserProfileForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Sports, Match
+from .models import Sports, Match, Prediction, Team
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -77,3 +78,27 @@ def view_matches(request, sport_id):
     matches = Match.objects.filter(sports=sport)
     now = timezone.now()
     return render(request, "app/matches.html", {'sport': sport, 'matches': matches, 'now': now})
+
+from django.shortcuts import get_object_or_404
+
+@login_required
+def view_match(request, match_id):
+    match = get_object_or_404(Match, pk=match_id)
+    user = request.user
+    user_prediction = Prediction.objects.filter(user=request.user, match=match).first()
+    participating_teams = Team.objects.filter(pk__in=[match.home_team_id, match.away_team_id])
+
+    if request.method == 'POST':
+        team_id = request.POST.get('predicted_result')  # Assuming the team ID is submitted in the form
+        predicted_team = get_object_or_404(Team, pk=team_id)
+
+        if Prediction.objects.filter(user=user, match=match).exists():
+            # Handle case where user has already predicted for this match
+            # You can redirect to a different page or display an error message
+            pass
+        else:
+            # Create a new prediction for the user
+            Prediction.objects.create(user=user, match=match, predicted_team=predicted_team)
+
+    return render(request, "app/match.html", {'match': match,'user_has_prediction': user_prediction is not None,
+                                               'user_prediction': user_prediction, "participating_teams": participating_teams})

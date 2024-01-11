@@ -75,7 +75,8 @@ class Prediction(models.Model):
     match = models.ForeignKey('Match', on_delete=models.CASCADE)
 
     # Predicted result
-    predicted_result = models.CharField(max_length=50)
+    predicted_team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True, blank=True)
+    
 
     # Additional information (optional)
     prediction_comment = models.TextField(blank=True)

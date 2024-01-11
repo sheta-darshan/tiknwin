@@ -1,10 +1,44 @@
+<!-- match.html -->
 {% extends 'app/layout.html' %}
 
-{% block title %}Matche - TikNWin{% endblock %}
+{% block title %}{{ match.home_team.name }} vs {{ match.away_team.name }} - TikNWin{% endblock %}
 
 {% block header %}TikNWin{% endblock %}
 
 {% block content %}
-<h1>Match</h1>
+  <h1>{{ match.home_team.name }} vs {{ match.away_team.name }}</h1>
+  <p>Location: {{ match.location }}</p>
+  <p>Date and Time: {{ match.date_time }}</p>
+  
+  <!-- Display flags for home and away teams -->
+  {% if match.home_team.flag_image %}
+    <img src="{{ match.home_team.flag_image.url }}" alt="{{ match.home_team.name }} Flag" style="width: 100px; height: auto;">
+  {% else %}
+    <p>No flag available for {{ match.home_team.name }}</p>
+  {% endif %}
 
+  {% if match.away_team.flag_image %}
+    <img src="{{ match.away_team.flag_image.url }}" alt="{{ match.away_team.name }} Flag" style="width: 100px; height: auto;">
+  {% else %}
+    <p>No flag available for {{ match.away_team.name }}</p>
+  {% endif %}
+
+  {% if user_has_prediction %}
+    <!-- Display the user's existing prediction -->
+    <p>Your Prediction: {{ user_prediction.predicted_team }}</p>
+  {% else %}
+    <!-- Display the prediction form -->
+
+    <form method="post" action="{% url 'app:view_match' match.id %}">
+        {% csrf_token %}
+        <label for="predicted_result">Your Prediction:</label>
+        <select id="predicted_result" name="predicted_result" required>
+            {% for team in participating_teams %}
+                <option value="{{ team.id }}">{{ team.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Make Prediction</button>
+    </form>
+
+  {% endif %}
 {% endblock %}

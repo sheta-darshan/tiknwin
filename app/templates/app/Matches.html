@@ -5,9 +5,7 @@
 {% block header %}TikNWin{% endblock %}
 
 {% block content %}
-  <h1>Matches</h1>
-  <p>Matches for {{ sport.name }}</p>
-
+  <h1>Matches for {{ sport.name }}</h1>
   {% for match in matches %}
     {% if match.date_time >= now %}
       <div style="margin-bottom: 20px;">
@@ -33,6 +31,11 @@
         {% endif %}
         {% if match.description %}
           <p>Description: {{ match.description }}</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+          <a href="{% url 'app:view_match' match.id %}" class="btn btn-primary">Make Prediction</a>
+        {% else %}
+          <p>Login to make predictions</p>
         {% endif %}
 
         {% with time_difference=match.date_time|timeuntil:now %}
