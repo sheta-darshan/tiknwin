@@ -1,10 +1,37 @@
+<!-- predictions.html -->
 {% extends 'app/layout.html' %}
 
-{% block title %}Predictions - TikNWin{% endblock %}
+{% block title %}Your Predictions - TikNWin{% endblock %}
 
 {% block header %}TikNWin{% endblock %}
 
 {% block content %}
-<h1>Prediction</h1>
+  <div style="text-align: center; margin-top: 50px;">
+    <h1 style="font-size: 2em;">Your Predictions</h1>
 
+    {% if predictions %}
+      <table style="width: 80%; margin: 20px auto; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 10px;">Match</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Sport</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Predicted Team</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Winner Team</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prediction in predictions %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.match.home_team.name }} vs {{ prediction.match.away_team.name }}</td>
+              <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.match.sports.name }}</td>
+              <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.predicted_team.name }}</td>
+              <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.match.result|default:"Not available" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="font-size: 1.5em;">You haven't made any predictions yet.</p>
+    {% endif %}
+  </div>
 {% endblock %}

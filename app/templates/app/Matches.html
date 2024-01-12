@@ -6,42 +6,63 @@
 
 {% block content %}
   <h1>Matches for {{ sport.name }}</h1>
-  {% for match in matches %}
-    {% if match.date_time >= now %}
-      <div style="margin-bottom: 20px;">
-        <p>{{ match.date_time }} - {{ match.location }}</p>
-        <p>{{ match.home_team.name }} vs {{ match.away_team.name }}</p>
-        
-        {% if match.home_team.flag_image %}
-          <img src="{{ match.home_team.flag_image.url }}" alt="{{ match.home_team.name }} Flag" style="width: 100px; height: auto;">
-        {% else %}
-          <!-- Handle the case when no flag is available for the home team -->
-          <p>No flag available for {{ match.home_team.name }}</p>
-        {% endif %}
-        vs
-        {% if match.away_team.flag_image %}
-          <img src="{{ match.away_team.flag_image.url }}" alt="{{ match.away_team.name }} Flag" style="width: 100px; height: auto;">
-        {% else %}
-          <!-- Handle the case when no flag is available for the away team -->
-          <p>No flag available for {{ match.away_team.name }}</p>
-        {% endif %}
 
-        {% if match.result %}
-          <p>Result: {{ match.result }}</p>
-        {% endif %}
-        {% if match.description %}
-          <p>Description: {{ match.description }}</p>
-        {% endif %}
-        {% if user.is_authenticated %}
-          <a href="{% url 'app:view_match' match.id %}" class="btn btn-primary">Make Prediction</a>
-        {% else %}
-          <p>Login to make predictions</p>
-        {% endif %}
+  <div class="matches-container">
+    {% for match in matches %}
+      {% if match.date_time >= now %}
+        <div class="match-card">
+          <p>{{ match.date_time }} - {{ match.location }}</p>
+          <p>{{ match.home_team.name }} vs {{ match.away_team.name }}</p>
+          
+          {% if match.home_team.flag_image %}
+            <img src="{{ match.home_team.flag_image.url }}" alt="{{ match.home_team.name }} Flag" class="team-flag">
+          {% else %}
+            <p>No flag available for {{ match.home_team.name }}</p>
+          {% endif %}
+          vs
+          {% if match.away_team.flag_image %}
+            <img src="{{ match.away_team.flag_image.url }}" alt="{{ match.away_team.name }} Flag" class="team-flag">
+          {% else %}
+            <p>No flag available for {{ match.away_team.name }}</p>
+          {% endif %}
 
-        {% with time_difference=match.date_time|timeuntil:now %}
-          <p>Time remaining: {{ time_difference }}</p>
-        {% endwith %}
-      </div>
-    {% endif %}
-  {% endfor %}
+          {% if match.result %}
+            <p>Result: {{ match.result }}</p>
+          {% endif %}
+          {% if match.description %}
+            <p>Description: {{ match.description }}</p>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <p><a href="{% url 'app:view_match' match.id %}" class="btn btn-primary">Make Prediction</a></p>
+          {% else %}
+            <p><a href="{% url 'login' %}">Login</a> to make predictions</p>
+          {% endif %}
+
+          {% with time_difference=match.date_time|timeuntil:now %}
+            <p>Time remaining: {{ time_difference }}</p>
+          {% endwith %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  
+  <style>
+    .matches-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .match-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px;
+      width: 300px;
+    }
+
+    .team-flag {
+      width: 100px;
+      height: auto;
+    }
+  </style>
 {% endblock %}

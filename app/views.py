@@ -64,9 +64,6 @@ def match(request):
 def matches(request):
     return render(request, "app/matches.html")
 
-def predictions(request):
-    return render(request, "app/predictions.html")
-
 def view_sports(request):
     sports = Sports.objects.all()
     return render(request, "app/sports.html", {'sports': sports})
@@ -87,9 +84,10 @@ def view_match(request, match_id):
     user = request.user
     user_prediction = Prediction.objects.filter(user=request.user, match=match).first()
     participating_teams = Team.objects.filter(pk__in=[match.home_team_id, match.away_team_id])
+    now = timezone.now()
 
     if request.method == 'POST':
-        team_id = request.POST.get('predicted_result')  # Assuming the team ID is submitted in the form
+        team_id = request.POST.get('predicted_team')  # Assuming the team ID is submitted in the form
         predicted_team = get_object_or_404(Team, pk=team_id)
 
         if Prediction.objects.filter(user=user, match=match).exists():
@@ -101,4 +99,10 @@ def view_match(request, match_id):
             Prediction.objects.create(user=user, match=match, predicted_team=predicted_team)
 
     return render(request, "app/match.html", {'match': match,'user_has_prediction': user_prediction is not None,
-                                               'user_prediction': user_prediction, "participating_teams": participating_teams})
+                                               'user_prediction': user_prediction, "participating_teams": participating_teams, 'now': now})
+@login_required(login_url='login')
+def predictions(request):
+    user = request.user
+    predictions = Prediction.objects.filter(user=user)
+
+    return render(request, "app/predictions.html", {'predictions': predictions})
