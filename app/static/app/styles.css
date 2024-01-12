@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,24 +14,25 @@ header {
 
 nav {
     display: flex;
-    top:0;
+    top: 0;
     width: 100%;
     background-color: #a49c9c;
     overflow: auto;
     height: auto;
 }
 
-.left-links{
-    flex:1 1 200px;
- }
- .links {
+.left-links {
+    flex: 1 1 200px;
+}
+
+.links {
     display: inline-block;
     text-align: center;
     padding: 14px;
     text-decoration: none;
     font-size: 17px;
     font-weight: bolder;
- }
+}
 
 main {
     padding: 20px;
@@ -50,10 +50,10 @@ footer {
 
 .button {
     position: absolute;
-    top:50%;
-    background-color:#0a0a23;
+    top: 50%;
+    background-color: #0a0a23;
     color: #fff;
-    border:none;
+    border: none;
 }
 
 table {
@@ -62,4 +62,31 @@ table {
 
 td {
     vertical-align: top;
-  }
+}
+
+input[type="radio"] {
+    appearance: none;
+    border: 1px solid #d3d3d3;
+    width: 20px;
+    height: 20px;
+    content: none;
+    outline: none;
+    margin: 0;
+}
+
+input[type="radio"]:checked {
+    appearance: none;
+    outline: none;
+    padding: 0;
+    content: none;
+    border: none;
+}
+
+input[type="radio"]:checked::before {
+    position: absolute;
+    color: green !important;
+    content: "\00A0\2713\00A0" !important;
+    border: 1px solid #d3d3d3;
+    font-weight: bolder;
+    font-size: 15px;
+}

@@ -4,8 +4,7 @@ in this project prediction of game winner will be provided by player. on their p
 
 on the basis of points lucky draw will be conducted and winners will anounce.
 
-
-#There is no money involve in this site for playing.
+# There is no money involve in this site for playing.
 
 to start instruction on local pc via visual studio code
 
