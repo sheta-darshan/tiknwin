@@ -11,7 +11,7 @@ urlpatterns = [
     path("", index, name="index"),
     path("register",register, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="app/login.html")),
-    path('logout/', auth_views.LoginView.as_view(template_name="app/logout.html") , name='logout'),
+    path('logout/', LogoutView.as_view(template_name="app/logout.html"), name='logout'),
     path("change-password/", auth_views.PasswordChangeView.as_view(template_name="change-password.html")),
     path('profile/', profile , name='profile'),
     path('match/<int:match_id>/', view_match , name='view_match'),

@@ -47,16 +47,19 @@ def login_view(request):
     return render(request=request, template_name="app/login.html", context={"login_form": form})
 
 def profile(request):
+    user = request.user
+    edit_mode = request.GET.get('edit', False)
+
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        form = UserProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully.')
-            return redirect('app:profile')  # Redirect to the same page to show the updated profile
+            return redirect('app:profile')
     else:
-        form = UserProfileForm(instance=request.user)
+        form = UserProfileForm(instance=user)
 
-    return render(request, 'app/profile.html', {'form': form})
+    return render(request, 'app/profile.html', {'user': user, 'form': form, 'edit_mode': edit_mode})
 
 def match(request):
     return render(request, "app/match.html")

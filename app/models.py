@@ -65,7 +65,7 @@ class Match(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.home_team} vs {self.away_team} - {self.date_time}"
+        return f"{self.home_team.name} vs {self.away_team.name} - {self.date_time}"
 
 class Prediction(models.Model):
     # User who made the prediction
