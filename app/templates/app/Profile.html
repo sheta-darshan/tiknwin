@@ -16,14 +16,13 @@
     {% endif %}
 
     {% if edit_mode %}
-        <form method="post" action="{% url 'app:profile' %}">
+        <form method="post" action="{% url 'app:profile' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <table>{{ form.as_table }}</table>
             <button type="submit">Save Changes</button>
         </form>
     {% else %}
         <table>
-            <!-- Display user profile details here -->
             <tr>
                 <td><strong>Username:</strong></td>
                 <td>{{ user.username }}</td>
@@ -33,14 +32,19 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <td><strong>First Name:</strong></td>
-                <td>{{ user.first_name }}</td>
+                <td><strong>Date of Birth:</strong></td>
+                <td>{{ user.date_of_birth }}</td>
             </tr>
             <tr>
-                <td><strong>Last Name:</strong></td>
-                <td>{{ user.last_name }}</td>
+                <td><strong>Profile Picture:</strong></td>
+                <td>
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}'s Profile Picture" style="border-radius: 50%; width: 100px; height: auto;">
+                    {% else %}
+                        No profile picture available.
+                    {% endif %}
+                </td>
             </tr>
-            <!-- Add more fields as needed -->
         </table>
         <a href="{% url 'app:profile' %}?edit=true">Edit Profile</a>
     {% endif %}

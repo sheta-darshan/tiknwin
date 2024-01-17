@@ -92,7 +92,7 @@ class Prediction(models.Model):
 class User(AbstractUser):
     # Additional fields
     date_of_birth = models.DateField(null=True, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='media/profile_pics/', null=True, blank=True)
     
     # Contact Information
     phone_number = models.CharField(max_length=15, null=True, blank=True)

@@ -20,4 +20,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name','date_of_birth', 'profile_picture', 'phone_number', 'gender', 'occupation', 'company' ,'receive_newsletter' ]
+    widgets = {
+        'date_of_birth': forms.TextInput(attrs={'type': 'date'}),
+    }
 

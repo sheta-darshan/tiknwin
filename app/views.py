@@ -103,6 +103,7 @@ def view_match(request, match_id):
 
     return render(request, "app/match.html", {'match': match,'user_has_prediction': user_prediction is not None,
                                                'user_prediction': user_prediction, "participating_teams": participating_teams, 'now': now})
+
 @login_required(login_url='login')
 def predictions(request):
     user = request.user
