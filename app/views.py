@@ -61,6 +61,10 @@ def profile(request):
 
     return render(request, 'app/profile.html', {'user': user, 'form': form, 'edit_mode': edit_mode})
 
+def view_logout(request):
+    logout(request)
+    return render(request, "app/logout.html")
+
 def match(request):
     return render(request, "app/match.html")
 

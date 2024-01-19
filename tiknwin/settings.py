@@ -132,7 +132,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_URL = 'app:login'
 LOGIN_REDIRECT_URL = 'app:index'
-LOGOUT_REDIRECT_URL = "app:logout"
+LOGOUT_REDIRECT_URL = 'app:logout'
 AUTH_USER_MODEL = 'app.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
