@@ -14,10 +14,11 @@
         <thead>
           <tr>
             <th style="border: 1px solid #ddd; padding: 10px;">Match</th>
-            <th style="border: 1px solid #ddd; padding: 10px;">Sport</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Sport Type</th>
             <th style="border: 1px solid #ddd; padding: 10px;">Predicted Team</th>
             <th style="border: 1px solid #ddd; padding: 10px;">Winner Team</th>
             <th style="border: 1px solid #ddd; padding: 10px;">Points</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Match Details</th>
           </tr>
         </thead>
         <tbody>
@@ -28,6 +29,9 @@
               <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.predicted_team.name }}</td>
               <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.match.result|default:"Not available" }}</td>
               <td style="border: 1px solid #ddd; padding: 10px;">{{ prediction.points }}</td>
+              <td style="border: 1px solid #ddd; padding: 10px;">
+                <a href="{% url 'app:view_match' match_id=prediction.match.id %}">View Detail</a>
+              </td>
             </tr>
           {% endfor %}
         </tbody>

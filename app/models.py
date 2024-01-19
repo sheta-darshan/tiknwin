@@ -51,7 +51,7 @@ class Match(models.Model):
     # Match details
     date_time = models.DateTimeField()
     location = models.CharField(max_length=255)
-    result = models.CharField(max_length=50, blank=True, null=True)
+    result = models.ForeignKey('Team', related_name='won_matches', on_delete=models.CASCADE, null=True, blank=True)
 
     # Additional information (optional)
     description = models.TextField(blank=True)

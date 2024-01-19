@@ -1,0 +1,13 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Confirmation - TikNWin{% endblock %}
+
+{% block header %}TikNWin{% endblock %}
+
+{% block content %}
+  <div style="text-align: center; margin-top: 50px;">
+    <h1 style="font-size: 2em;">Confirmation Page</h1>
+    <p>Your have Predicted successfully!</p>
+    <a class="links" href="{% url 'app:predictions' %}">View Your Predictions</a>
+  </div>
+{% endblock %}

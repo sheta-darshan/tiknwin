@@ -104,9 +104,13 @@ def view_match(request, match_id):
         else:
             # Create a new prediction for the user
             Prediction.objects.create(user=user, match=match, predicted_team=predicted_team)
+            return redirect('app:confirmation_page', match_id=match_id)
 
     return render(request, "app/match.html", {'match': match,'user_has_prediction': user_prediction is not None,
                                                'user_prediction': user_prediction, "participating_teams": participating_teams, 'now': now})
+def confirmation_page(request, match_id):
+    return render(request, 'app/confirmation_page.html', {'match_id': match_id})
+
 
 @login_required(login_url='login')
 def predictions(request):
