@@ -12,10 +12,15 @@ To set up the project on your local machine using Visual Studio Code, follow the
 
 1. Remove the existing `db.sqlite3` file.
 2. Delete all migration files in the `migrations` folder, starting from those named `000`.
-3. Open a terminal and run the following commands:
+3. remove all media files in folders do not delete folder
+4. download install Python 3.11.5 for windows pc via this link https://www.python.org/ftp/python/3.11.5/python-3.11.5-amd64.exe if not installed
+5. intall pip if not installed
+6. Open a terminal and run the following commands:
 
-```bash
+
+```powershell
 pip install -r requirements.txt
+python manage.py makemigrations app
 python manage.py migrate
 
 #To create an admin account for managing the application, generate a user ID and password by running:
