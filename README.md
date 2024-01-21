@@ -19,11 +19,9 @@ pip install -r requirements.txt
 python manage.py migrate
 
 #To create an admin account for managing the application, generate a user ID and password by running:
-```bash
 python manage.py createsuperuser
 
 #Finally, start the app in your browser using the following command:
-```bash
 python manage.py runserver
 
 #Contributing
